@@ -1,103 +1,57 @@
 import { Helmet } from 'react-helmet';
 import { Box, Container, Grid } from '@material-ui/core';
-import Budget from '../components/dashboard/Budget';
+import NumberTrend from '../components/dashboard/NumberTrend';
 import LatestOrders from '../components/dashboard/LatestOrders';
 import LatestProducts from '../components/dashboard/LatestProducts';
 import Sales from '../components/dashboard/Sales';
 import TasksProgress from '../components/dashboard/TasksProgress';
-import TotalCustomers from '../components/dashboard/TotalCustomers';
 import TotalProfit from '../components/dashboard/TotalProfit';
 import TrafficByDevice from '../components/dashboard/TrafficByDevice';
+import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import MoneyIcon from '@material-ui/icons/Money';
 
 const Dashboard = () => (
   <>
     <Helmet>
       <title>Dashboard | Material Kit</title>
     </Helmet>
-    <Box
-      sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
-      }}
-    >
+
+    <Box sx={{ backgroundColor: 'background.default', minHeight: '100%', py: 3 }}>
       <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <Budget />
+        <Grid container spacing={3} >
+
+          <Grid item lg={3} sm={6} xl={3} xs={12} >
+            <NumberTrend number={20000} previousNumber={15000} title={"VENDAS TOTAIS DO MÊS"} symbol={"€"} icon={<MoneyIcon />} />
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalCustomers />
+
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <NumberTrend number={360} previousNumber={380} title={"TOTAL DE CLIENTES DO MÊS"} icon={<PeopleIcon />}/>
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TasksProgress />
+
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <TasksProgress title={"VENDAS ESTIMADAS PARA O DIA"} percentage={"67.2"} />
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
+
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
             <TotalProfit sx={{ height: '100%' }} />
           </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
+
+          <Grid item lg={8} md={12} xl={9} xs={12} >
             <Sales />
           </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
+
+          <Grid item lg={4} md={6} xl={3} xs={12}>
             <TrafficByDevice sx={{ height: '100%' }} />
           </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
+
+          <Grid item lg={4} md={6} xl={3} xs={12}>
             <LatestProducts sx={{ height: '100%' }} />
           </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
+
+          <Grid item lg={8} md={12} xl={9} xs={12}>
             <LatestOrders />
           </Grid>
+
         </Grid>
       </Container>
     </Box>

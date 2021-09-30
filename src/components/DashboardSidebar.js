@@ -23,10 +23,9 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
-const user = {
+const restaurant = {
   avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  name: 'Restaurante X'
 };
 
 const items = [
@@ -72,7 +71,7 @@ const items = [
   }
 ];
 
-const DashboardSidebar = ({ onMobileClose, openMobile }) => {
+const DashboardSidebar = ({ onMobileClose, openMobile, context }) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -82,42 +81,11 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   }, [location.pathname]);
 
   const content = (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%'
-      }}
-    >
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          p: 2
-        }}
-      >
-        <Avatar
-          component={RouterLink}
-          src={user.avatar}
-          sx={{
-            cursor: 'pointer',
-            width: 64,
-            height: 64
-          }}
-          to="/app/account"
-        />
-        <Typography
-          color="textPrimary"
-          variant="h5"
-        >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column', p: 2 }} >
+        <Avatar component={RouterLink} src={restaurant.avatar} sx={{ cursor: 'pointer', width: 64, height: 64 }} to="/app/account" />
+        <Typography color="textPrimary" variant="h5">
+          {context.restaurantName}
         </Typography>
       </Box>
       <Divider />
@@ -134,43 +102,6 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          m: 2,
-          p: 2
-        }}
-      >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            pt: 2
-          }}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
-      </Box>
     </Box>
   );
 

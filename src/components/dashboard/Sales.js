@@ -1,21 +1,66 @@
+import React from 'react'
 import { Bar } from 'react-chartjs-2';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  useTheme,
-  colors
-} from '@material-ui/core';
+import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, colors, Menu, MenuItem } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+
+const possibleGrans = ["Últimos 7 dias", "Último mês"]
+
+// =========== RANDOM VALUES =============
+let weekDataReal = Array.from({ length: 7 }, () => Math.floor(Math.random() * 1000));
+let weekDataForecast = [];
+
+weekDataReal.forEach((number) => {
+  weekDataForecast.push(Math.abs(number + Math.floor(Math.random() * 250) - 130))
+})
+
+let monthDataReal = Array.from({ length: 30 }, () => Math.floor(Math.random() * 1000));
+let monthDataForecast = [];
+
+monthDataReal.forEach((number) => {
+  monthDataForecast.push(Math.abs(number + Math.floor(Math.random() * 250) - 130))
+})
+// =====================================
+
+// =========== LAST 30 DAYS =============
+
+let today = new Date();
+today.setDate(today.getDate() - 1);
+let lastDays = []
+
+for (let i = 0; i < 30; i++) {
+  lastDays.push(today.getDate() + "/" + (today.getMonth() + 1));
+  today.setDate(today.getDate() - 1);
+}
+
+lastDays.reverse()
+
+// =====================================
 
 const Sales = (props) => {
   const theme = useTheme();
 
-  const data = {
+  const [selectedGranularity, setSelectedGranularity] = React.useState("Últimos 7 dias");
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (newGran) => {
+    if (newGran) {
+      setSelectedGranularity(newGran)
+    }
+
+    setAnchorEl(null);
+  };
+
+
+  let data = {
     datasets: [
       {
         backgroundColor: colors.indigo[500],
@@ -23,8 +68,8 @@ const Sales = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'This year',
+        data: selectedGranularity.includes("7") ? weekDataReal : monthDataReal,
+        label: 'Vendas',
         maxBarThickness: 10
       },
       {
@@ -33,12 +78,12 @@ const Sales = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year',
+        data: selectedGranularity.includes("7") ? weekDataForecast : monthDataForecast,
+        label: 'Previsão',
         maxBarThickness: 10
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
+    labels: selectedGranularity.includes("7") ? lastDays.slice(lastDays.length - 7) : lastDays
   };
 
   const options = {
@@ -94,49 +139,60 @@ const Sales = (props) => {
 
   return (
     <Card {...props}>
-      <CardHeader
+
+      <CardHeader title="Vendas"
         action={(
-          <Button
-            endIcon={<ArrowDropDownIcon />}
-            size="small"
-            variant="text"
-          >
-            Last 7 days
+          <Button endIcon={<ArrowDropDownIcon />} size="small" variant="text" onClick={handleClick}>
+            {selectedGranularity}
           </Button>
         )}
-        title="Latest Sales"
       />
-      <Divider />
-      <CardContent>
-        <Box
-          sx={{
-            height: 400,
-            position: 'relative'
-          }}
-        >
-          <Bar
-            data={data}
-            options={options}
-          />
-        </Box>
-      </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
+
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={() => handleClose(null)}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon />}
-          size="small"
-          variant="text"
-        >
+        {
+          possibleGrans.map((granularity) => {
+            if (granularity != selectedGranularity) {
+              return (
+                <MenuItem onClick={() => handleClose(granularity)}>{granularity}</MenuItem>
+              )
+            } else {
+              return null;
+            }
+          })
+        }
+
+      </Menu>
+
+      <Divider />
+
+      <CardContent>
+        <Box sx={{ height: 400, position: 'relative' }}>
+          <Bar data={data} options={options} />
+        </Box>
+      </CardContent>
+
+      <Divider />
+
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+        <Button color="primary" endIcon={<ArrowRightIcon />} size="small" variant="text">
           Overview
         </Button>
       </Box>
+
     </Card>
   );
 };

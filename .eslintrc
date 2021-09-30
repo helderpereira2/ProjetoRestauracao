@@ -5,7 +5,7 @@
     "browser": true
   },
   "extends": [
-    "airbnb"
+      "plugin:react/recommended"
   ],
   "settings": {
     "import/resolver": {
@@ -30,6 +30,8 @@
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "linebreak-style": 0,
+    "react/prop-types": "off"
   }
 }

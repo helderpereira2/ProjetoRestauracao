@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
+import AppContext from '../AppContext';
 
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
@@ -40,6 +41,7 @@ const DashboardLayoutContent = styled('div')({
 
 const DashboardLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+  const context = useContext(AppContext);
 
   return (
     <DashboardLayoutRoot>
@@ -47,6 +49,7 @@ const DashboardLayout = () => {
       <DashboardSidebar
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}
+        context={context}
       />
       <DashboardLayoutWrapper>
         <DashboardLayoutContainer>
