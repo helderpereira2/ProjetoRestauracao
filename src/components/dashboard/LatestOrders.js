@@ -1,21 +1,7 @@
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import {
-  Box,
-  Button,
-  Card,
-  CardHeader,
-  Chip,
-  Divider,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Tooltip
-} from '@material-ui/core';
+import { Box, Button, Card, CardHeader, Chip, Divider, Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel, Tooltip } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 const orders = [
@@ -27,7 +13,7 @@ const orders = [
       name: 'Ekaterina Tankova'
     },
     createdAt: 1555016400000,
-    status: 'pending'
+    status: 'Em operação'
   },
   {
     id: uuid(),
@@ -37,7 +23,7 @@ const orders = [
       name: 'Cao Yu'
     },
     createdAt: 1555016400000,
-    status: 'delivered'
+    status: 'Finalizado'
   },
   {
     id: uuid(),
@@ -47,7 +33,7 @@ const orders = [
       name: 'Alexa Richardson'
     },
     createdAt: 1554930000000,
-    status: 'refunded'
+    status: 'Em operação'
   },
   {
     id: uuid(),
@@ -57,7 +43,7 @@ const orders = [
       name: 'Anje Keizer'
     },
     createdAt: 1554757200000,
-    status: 'pending'
+    status: 'Em operação'
   },
   {
     id: uuid(),
@@ -67,97 +53,66 @@ const orders = [
       name: 'Clarke Gillebert'
     },
     createdAt: 1554670800000,
-    status: 'delivered'
+    status: 'Finalizado'
   },
   {
     id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
+    ref: 'CDD1049',
+    amount: 30.5,
     customer: {
-      name: 'Adam Denisov'
+      name: 'Ekaterina Tankova'
     },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  }
+    createdAt: 1555016400000,
+    status: 'Em operação'
+  },
 ];
 
 const LatestOrders = (props) => (
   <Card {...props}>
-    <CardHeader title="Latest Orders" />
+    <CardHeader title="Últimas Vendas" />
     <Divider />
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
         <Table>
+
           <TableHead>
             <TableRow>
-              <TableCell>
-                Order Ref
-              </TableCell>
-              <TableCell>
-                Customer
-              </TableCell>
+              <TableCell> Referência </TableCell>
+              <TableCell> Cliente </TableCell>
               <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                  >
-                    Date
+                <Tooltip enterDelay={300} title="Sort" >
+                  <TableSortLabel active direction="desc">
+                    Data
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
+              <TableCell> Estado </TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
-            {orders.map((order) => (
-              <TableRow
-                hover
-                key={order.id}
-              >
-                <TableCell>
-                  {order.ref}
-                </TableCell>
-                <TableCell>
-                  {order.customer.name}
-                </TableCell>
-                <TableCell>
-                  {moment(order.createdAt).format('DD/MM/YYYY')}
-                </TableCell>
-                <TableCell>
-                  <Chip
-                    color="primary"
-                    label={order.status}
-                    size="small"
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
+            {
+              orders.map((order) => (
+                <TableRow hover key={order.id}>
+                  <TableCell> {order.ref} </TableCell>
+                  <TableCell> {order.customer.name} </TableCell>
+                  <TableCell> {moment(order.createdAt).format('DD/MM/YYYY')} </TableCell>
+                  <TableCell> <Chip color="primary" label={order.status} size="small" /> </TableCell>
+                </TableRow>
+              ))
+            }
           </TableBody>
+
         </Table>
       </Box>
     </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
-      >
+
+    <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+      <Button color="primary" endIcon={<ArrowRightIcon />} size="small" variant="text">
         View all
       </Button>
     </Box>
+
   </Card>
 );
 

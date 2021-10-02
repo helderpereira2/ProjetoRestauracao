@@ -7,8 +7,7 @@ import {
   LinearProgress,
   Typography
 } from '@material-ui/core';
-import { orange } from '@material-ui/core/colors';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
+import { red } from '@material-ui/core/colors';
 
 const TasksProgress = (props) => (
   <Card sx={{ height: '100%' }}>
@@ -25,8 +24,8 @@ const TasksProgress = (props) => (
         </Grid>
 
         <Grid item>
-          <Avatar sx={{ backgroundColor: orange[600], height: 56, width: 56 }}>
-            <InsertChartIcon />
+          <Avatar sx={{ backgroundColor: red[600], height: 56, width: 56 }}>
+            {props.icon}
           </Avatar>
         </Grid>
 

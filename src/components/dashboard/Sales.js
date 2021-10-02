@@ -1,5 +1,5 @@
 import React from 'react'
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, colors, Menu, MenuItem } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
@@ -55,7 +55,6 @@ const Sales = (props) => {
     if (newGran) {
       setSelectedGranularity(newGran)
     }
-
     setAnchorEl(null);
   };
 
@@ -182,6 +181,7 @@ const Sales = (props) => {
       <CardContent>
         <Box sx={{ height: 400, position: 'relative' }}>
           <Bar data={data} options={options} />
+          {/* <Line data={data} options={options} /> */}
         </Box>
       </CardContent>
 
@@ -189,7 +189,7 @@ const Sales = (props) => {
 
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
         <Button color="primary" endIcon={<ArrowRightIcon />} size="small" variant="text">
-          Overview
+          Vista Geral
         </Button>
       </Box>
 

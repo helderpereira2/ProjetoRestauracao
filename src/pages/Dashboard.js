@@ -2,13 +2,14 @@ import { Helmet } from 'react-helmet';
 import { Box, Container, Grid } from '@material-ui/core';
 import NumberTrend from '../components/dashboard/NumberTrend';
 import LatestOrders from '../components/dashboard/LatestOrders';
-import LatestProducts from '../components/dashboard/LatestProducts';
+import LatestProducts from '../components/dashboard/RelevantEvents';
 import Sales from '../components/dashboard/Sales';
 import TasksProgress from '../components/dashboard/TasksProgress';
 import TotalProfit from '../components/dashboard/TotalProfit';
-import TrafficByDevice from '../components/dashboard/TrafficByDevice';
+import PercentageDoughnut from '../components/dashboard/PercentageDoughnut';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import MoneyIcon from '@material-ui/icons/Money';
+import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 
 const Dashboard = () => (
   <>
@@ -29,7 +30,7 @@ const Dashboard = () => (
           </Grid>
 
           <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <TasksProgress title={"VENDAS ESTIMADAS PARA O DIA"} percentage={"67.2"} />
+            <TasksProgress title={"VENDAS ESTIMADAS PARA O DIA"} percentage={"67.2"} icon={<InsertChartIcon />}/>
           </Grid>
 
           <Grid item lg={3} sm={6} xl={3} xs={12}>
@@ -41,7 +42,7 @@ const Dashboard = () => (
           </Grid>
 
           <Grid item lg={4} md={6} xl={3} xs={12}>
-            <TrafficByDevice sx={{ height: '100%' }} />
+            <PercentageDoughnut sx={{ height: '100%' }} />
           </Grid>
 
           <Grid item lg={4} md={6} xl={3} xs={12}>
