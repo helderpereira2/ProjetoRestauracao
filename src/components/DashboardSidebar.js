@@ -1,16 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Avatar, Box, Button, Divider, Drawer, Hidden, List, Typography } from '@material-ui/core';
 import {
-  AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
-  Lock as LockIcon,
-  Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Calendar as CalendarIcon,
+  Users as UsersIcon,
+  DollarSign as DollarIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
@@ -26,20 +23,26 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/app/customers',
-    icon: UsersIcon,
+    href: '/app/sales',
+    icon: DollarIcon,
+    title: 'Vendas'
+  },
+  {
+    href: '/app/forecast',
+    icon: CalendarIcon,
     title: 'Previsões'
   },
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Stock'
+    title: 'Produtos'
   },
   {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Staff'
+    href: '/app/myData',
+    icon: ShoppingBagIcon,
+    title: 'Os Meus Dados'
   },
+  /*
   {
     href: '/app/settings',
     icon: SettingsIcon,
@@ -59,7 +62,7 @@ const items = [
     href: '/404',
     icon: AlertCircleIcon,
     title: 'Error'
-  }
+  } */
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile, context }) => {
@@ -76,9 +79,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile, context }) => {
 
       <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column', p: 2 }} >
         <Avatar component={RouterLink} src={restaurant.avatar} sx={{ cursor: 'pointer', width: 64, height: 64 }} to="/app/account" />
-        <Typography color="textPrimary" variant="h5">
-          {context.restaurantName}
-        </Typography>
+        {context.currentUser &&
+          <Typography color="textPrimary" variant="h5">
+            {context.currentUser['restName']}
+          </Typography>
+        }
+
       </Box>
 
       <Divider />
@@ -112,6 +118,6 @@ const DashboardSidebar = ({ onMobileClose, openMobile, context }) => {
 };
 
 DashboardSidebar.propTypes = { onMobileClose: PropTypes.func, openMobile: PropTypes.bool };
-DashboardSidebar.defaultProps = { onMobileClose: () => {},openMobile: false};
+DashboardSidebar.defaultProps = { onMobileClose: () => { }, openMobile: false };
 
 export default DashboardSidebar;

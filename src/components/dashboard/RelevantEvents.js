@@ -50,7 +50,7 @@ const events = [
 const RelevantEvents = (props) => (
   <Card {...props}>
 
-    <CardHeader subtitle={`${events.length} no total`} title="Eventos relevantes" />
+    <CardHeader subtitle={`${events.length} no total`} title="Eventos relevantes (!! TO DO !!)" />
     <Divider />
 
     <List>

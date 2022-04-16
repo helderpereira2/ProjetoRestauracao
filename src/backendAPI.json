@@ -1,0 +1,19 @@
+{
+    "address": "127.0.0.1",
+    "port": 5000,
+    "users": {
+        "signUp": "/users/signup",
+        "login": "/users/login",
+        "logout": "/users/logout",
+        "renewToken": "/users/renewToken"
+    },
+    "sales": {
+        "getAllSales": "/allSales",
+        "saleProducts": "/saleProducts",
+        "productSales": "/productSales",
+        "productSalesAndForecast": "/productSalesAndForecast"
+    },
+    "products":{
+        "getAllProducts": "/allProducts"
+    }
+}

@@ -78,7 +78,7 @@ const LatestOrders = (props) => (
           <TableHead>
             <TableRow>
               <TableCell> Referência </TableCell>
-              <TableCell> Cliente </TableCell>
+              <TableCell> Funcionário </TableCell>
               <TableCell sortDirection="desc">
                 <Tooltip enterDelay={300} title="Sort" >
                   <TableSortLabel active direction="desc">

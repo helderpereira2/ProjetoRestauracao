@@ -1,8 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
+import { renewToken } from '../services/authenticationService'
 import AppContext from '../AppContext';
 
 const DashboardLayoutRoot = styled('div')(
@@ -39,9 +41,27 @@ const DashboardLayoutContent = styled('div')({
   overflow: 'auto'
 });
 
-const DashboardLayout = () => {
+export default function DashboardLayout() {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
   const context = useContext(AppContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!localStorage.getItem('authenticationToken')) {
+      navigate('/login', { replace: true });
+    } else {
+      renewToken(localStorage.getItem('refreshToken'), (response) => {
+        response = JSON.parse(response)
+        context.setCurrentUser(response['user']);
+        localStorage.setItem('authenticationToken', response['access_token']);
+        localStorage.setItem('refreshToken', response['refresh_token']);
+      }, (error) => {
+        console.log(error);
+      })
+    }
+  }, [location.pathname]);
 
   return (
     <DashboardLayoutRoot>
@@ -61,5 +81,3 @@ const DashboardLayout = () => {
     </DashboardLayoutRoot>
   );
 };
-
-export default DashboardLayout;

@@ -1,0 +1,8 @@
+.rs-picker-daterange-menu {
+  z-index: 10000000000; /*added a random number*/
+  top: 100px !important;
+}
+
+.MuiDataGrid-row.Mui-odd {
+  background-color: rgb(73, 166, 248);
+}

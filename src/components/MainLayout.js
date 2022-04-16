@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';
 import MainNavbar from './MainNavbar';
 
@@ -31,17 +32,34 @@ const MainLayoutContent = styled('div')({
   overflow: 'auto'
 });
 
-const MainLayout = () => (
-  <MainLayoutRoot>
-    <MainNavbar />
-    <MainLayoutWrapper>
-      <MainLayoutContainer>
-        <MainLayoutContent>
-          <Outlet />
-        </MainLayoutContent>
-      </MainLayoutContainer>
-    </MainLayoutWrapper>
-  </MainLayoutRoot>
-);
+export default function MainLayout() {
+  const navigate = useNavigate();
 
-export default MainLayout;
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (localStorage.getItem('authenticationToken')) {
+      navigate('/app/dashboard', { replace: true });
+    }
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return null
+  } else {
+    return (
+      <MainLayoutRoot>
+        <MainNavbar />
+        <MainLayoutWrapper>
+          <MainLayoutContainer>
+            <MainLayoutContent>
+              <Outlet />
+            </MainLayoutContent>
+          </MainLayoutContainer>
+        </MainLayoutWrapper>
+      </MainLayoutRoot>
+    )
+  }
+};
+
+MainLayout;
